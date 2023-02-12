@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 from operation import Operation
 
 def get_operation_info():
@@ -15,10 +16,10 @@ def get_executed_operations_list(operations):
             exc_operations.append(operation)
     return exc_operations
 
-#def exc_operations_in_needed_view(operations):
-#    operations_in_required_view= {}
-#    for operation in operations:
-#        operations_in_required_view['description'] == operation['description']
+def sorted_exc_operations(operations):
+    sorted_operations = sorted(operations,
+    key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d %H:%M:%S'), reverse=True)
+    return sorted_operations
 
 def transform_date(exc_time):
     time_ = exc_time[0:10]
