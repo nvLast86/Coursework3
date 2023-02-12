@@ -32,7 +32,9 @@ def transform_from_card(info):
     info_list = info.split(' ')
     for example in info_list:
         if example.isdigit():
-           card_data['card_number'] = example
+           temp_example = [example[i:i+4] for i in range(0, len(example), 4)]
+           temp_example = ' '.join(temp_example)
+           card_data['card_number'] = temp_example
         else:
            temporary_card_name.append(example)
     if len(temporary_card_name) > 1:
@@ -44,7 +46,7 @@ def transform_from_card(info):
 
 
 
-#print(transform_from_card("Visa 4195191172583802"))
+#print(transform_from_card("Visa Classic 4195191172583802"))
 
 #print(transform_from_card("Счет 73654108430135874305"))
 
