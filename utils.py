@@ -34,7 +34,7 @@ def transform_from_card(info):
         if example.isdigit():
            temp_example = [example[i:i+4] for i in range(0, len(example), 4)]
            temp_example = ' '.join(temp_example)
-           card_data['card_number'] = temp_example
+           card_data['card_number'] = example
         else:
            temporary_card_name.append(example)
     if len(temporary_card_name) > 1:
@@ -43,8 +43,23 @@ def transform_from_card(info):
         card_data['card_name'] = temporary_card_name[0]
     return card_data
 
+def hide_card_info(card_number, flag):
+    hide_card_number_temp = []
+    if flag == 'from':
+        for i in range(len(card_number)):
+            if 7 <= i <= 14:
+                hide_card_number_temp.append('*')
+            else:
+                hide_card_number_temp.append(card_number[i])
+        hide_card_number = ''.join(hide_card_number_temp)
+    else:
+        hide_card_number = '**' + card_number[15:19]
+    return hide_card_number
 
 
+
+
+print(hide_card_info('4195 1911 7258 3802', 'from'))
 
 #print(transform_from_card("Visa Classic 4195191172583802"))
 
