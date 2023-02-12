@@ -1,6 +1,6 @@
 import requests
 from datetime import datetime
-from operation import Operation
+
 
 def get_operation_info():
     response = requests.get('https://www.jsonkeeper.com/b/T1M3')
@@ -22,9 +22,9 @@ def sorted_exc_operations(operations):
     return sorted_operations
 
 def transform_date(exc_time):
-    time_ = exc_time[0:10]
-    time = time_.split('-')
-    time.reverse()
+    time = exc_time.split('T')
+    time[1] = time[1][:8]
+    time = ' '.join(time)
     return time
 
 def transform_from_card(info):
@@ -60,7 +60,7 @@ def hide_card_info(card_number, flag):
 
 
 
-print(hide_card_info('4195 1911 7258 3802', 'from'))
+#print(hide_card_info('4195 1911 7258 3802', 'from'))
 
 #print(transform_from_card("Visa Classic 4195191172583802"))
 
