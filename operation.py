@@ -9,6 +9,6 @@ class Operation:
         self.opr_to = opr_to
 
     def __repr__(self):
-        return f'Операция № {self.id}'
+        return f'Операция № {self.opr_id}'
 
 
