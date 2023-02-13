@@ -4,8 +4,8 @@ from datetime import datetime
 
 def get_operation_info():
     """
-    Получение списка всех операций из json файла, загруженного на сайт
-    :return: список всех операций
+    Получение списка всех операций из json файла, загруженного на сайт.
+    :return: список всех операций.
     """
     response = requests.get('https://www.jsonkeeper.com/b/T1M3')
     operations = response.json()
@@ -14,9 +14,9 @@ def get_operation_info():
 
 def get_executed_operations_list(operations):
     """
-    Получение списка успешно проведенных операций
-    :param operations: список всех операций
-    :return: список успешно проведенных операций
+    Получение списка успешно проведенных операций.
+    :param operations: список всех операций.
+    :return: список успешно проведенных операций.
     """
     exc_operations = []
     for operation in operations:
@@ -29,9 +29,9 @@ def get_executed_operations_list(operations):
 
 def sorted_exc_operations(operations):
     """
-    Сортировка списка успешно проведенных операций, начиная с самой "свежей"
-    :param operations: список успешно проведенных операций
-    :return: отсортированный список успешно проведенных операций
+    Сортировка списка успешно проведенных операций, начиная с самой "свежей".
+    :param operations: список успешно проведенных операций.
+    :return: отсортированный список успешно проведенных операций.
     """
     sorted_operations = sorted(operations,
                                key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d %H:%M:%S'), reverse=True)
@@ -40,9 +40,9 @@ def sorted_exc_operations(operations):
 
 def transform_date(exc_time):
     """
-    Извлечение даты проведения операции
-    :param exc_time: дата проведения операции в необработанном виде
-    :return: дата проведения операции в необходимом формате ГГГГ-ММ-ДД
+    Извлечение даты проведения операции.
+    :param exc_time: дата проведения операции в необработанном виде.
+    :return: дата проведения операции в необходимом формате ГГГГ-ММ-ДД.
     """
     time = exc_time.split('T')
     time[1] = time[1][:8]
@@ -52,9 +52,9 @@ def transform_date(exc_time):
 
 def convert_date_format(some_date):
     """
-    Преобразование даты в требуемый для вывода формат
-    :param some_date: дата проведения операции ГГГГ-ММ-ДД
-    :return: дата проведения операции ДД-ММ-ГГГГ
+    Преобразование даты в требуемый для вывода формат.
+    :param some_date: дата проведения операции ГГГГ-ММ-ДД.
+    :return: дата проведения операции ДД-ММ-ГГГГ.
     """
     date = some_date[:10]
     date = date.split('-')
@@ -65,9 +65,9 @@ def convert_date_format(some_date):
 
 def transform_and_hide_data(data):
     """
-    Получение зашифрованной информации о транзакции с какого или на какой счет/карту
-    :param data: информация о счете или карты
-    :return: зашифрованная информация о счете или карте
+    Получение зашифрованной информации о транзакции с какого или на какой счет/карту.
+    :param data: информация о счете или карты.
+    :return: зашифрованная информация о счете или карте.
     """
     card_number = ''
     data_list = data.split(' ')
@@ -89,9 +89,9 @@ def transform_and_hide_data(data):
 
 def get_hidden_card_number(card_number):
     """
-    Шифрование номера карты
-    :param card_number: номер карты
-    :return: зашифрованный номер карты
+    Шифрование номера карты.
+    :param card_number: номер карты.
+    :return: зашифрованный номер карты.
     """
     hide_card_number_temp = []
     for i in range(len(card_number)):
