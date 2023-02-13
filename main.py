@@ -13,11 +13,8 @@ def main():
 
     exc_operations = utils.sorted_exc_operations(exc_operations)
 
-    for operation in exc_operations:
-        operation['date'] = utils.convert_date_format(operation['date'])
-
     for i in range (0,5):
-        print(f'{exc_operations[i]["date"]} {exc_operations[i]["description"]}')
+        print(f'{utils.convert_date_format(exc_operations[i]["date"])} {exc_operations[i]["description"]}')
 
 #        print(f'{utils.transform_from_card(exc_operations[i])}')
 
