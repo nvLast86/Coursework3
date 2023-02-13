@@ -95,7 +95,7 @@ def get_hidden_card_number(card_number):
     """
     hide_card_number_temp = []
     for i in range(len(card_number)):
-        if 7 <= i <= 14:
+        if 7 <= i <= 8 or 10 <= i <= 13:
             hide_card_number_temp.append('*')
         else:
             hide_card_number_temp.append(card_number[i])
