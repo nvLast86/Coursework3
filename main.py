@@ -15,8 +15,11 @@ def main():
 
     exc_operations = utils.sorted_exc_operations(exc_operations)
 
-    for i in range (0,5):
+    for i in range(0, 5):
         print(f'{utils.convert_date_format(exc_operations[i]["date"])} {exc_operations[i]["description"]}')
+        print(f'{utils.transform_and_hide_data(exc_operations[i]["from"])} -> '
+              f'{utils.transform_and_hide_data(exc_operations[i]["to"])}')
+        print(f'{exc_operations[i]["operationAmount"]["amount"]}\n')
 
 
 
