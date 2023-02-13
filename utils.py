@@ -7,6 +7,7 @@ def get_operation_info():
     operations = response.json()
     return operations
 
+
 def get_executed_operations_list(operations):
     exc_operations = []
     for operation in operations:
@@ -16,16 +17,19 @@ def get_executed_operations_list(operations):
             exc_operations.append(operation)
     return exc_operations
 
+
 def sorted_exc_operations(operations):
     sorted_operations = sorted(operations,
                                key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d %H:%M:%S'), reverse=True)
     return sorted_operations
+
 
 def transform_date(exc_time):
     time = exc_time.split('T')
     time[1] = time[1][:8]
     time = ' '.join(time)
     return time
+
 
 def convert_date_format(some_date):
     date = some_date[:10]
@@ -34,46 +38,32 @@ def convert_date_format(some_date):
     new_format_date = '.'.join(date)
     return new_format_date
 
-def transform_from_card(info):
-    card_data = {'card_name': None, 'card_number': None}
-    temporary_card_name = []
-    info_list = info.split(' ')
-    for example in info_list:
-        if example.isdigit():
-           temp_example = [example[i:i+4] for i in range(0, len(example), 4)]
-           temp_example = ' '.join(temp_example)
-           card_data['card_number'] = example
-        else:
-           temporary_card_name.append(example)
-    if len(temporary_card_name) > 1:
-        card_data['card_name'] = ' '.join(temporary_card_name)
-    else:
-        card_data['card_name'] = temporary_card_name[0]
-    return card_data
 
-def hide_card_info(card_number, flag):
-    hide_card_number_temp = []
-    if flag == 'from':
-        for i in range(len(card_number)):
-            if 7 <= i <= 14:
-                hide_card_number_temp.append('*')
+def transform_and_hide_data(data):
+    card_number = ''
+    data_list = data.split(' ')
+    if 'Счет' not in data_list:
+        card_name_list = []
+        for obj in data_list:
+            if obj.isdigit():
+                card_number = [obj[i:i + 4] for i in range(0, len(obj), 4)]
+                card_number = ' '.join(card_number)
             else:
-                hide_card_number_temp.append(card_number[i])
-        hide_card_number = ''.join(hide_card_number_temp)
+                card_name_list.append(obj)
+        card_name = ' '.join(card_name_list)
+        hide_data = card_name + ' ' + get_hidden_card_number(card_number)
     else:
-        hide_card_number = '**' + card_number[15:19]
+        new_data = data_list[0] + ' ' + data_list[1]
+        hide_data = 'Счет **' + new_data[len(data) - 4:len(new_data):1]
+    return hide_data
+
+
+def get_hidden_card_number(card_number):
+    hide_card_number_temp = []
+    for i in range(len(card_number)):
+        if 7 <= i <= 14:
+            hide_card_number_temp.append('*')
+        else:
+            hide_card_number_temp.append(card_number[i])
+    hide_card_number = ''.join(hide_card_number_temp)
     return hide_card_number
-
-
-
-
-#print(hide_card_info('4195 1911 7258 3802', 'from'))
-
-#print(transform_from_card("Visa Classic 4195191172583802"))
-
-#print(transform_from_card("Счет 73654108430135874305"))
-
-#print(get_executed_operations_list(get_operation_info()))
-
-print(convert_date_format('2019-12-08 22:46:21'))
-
