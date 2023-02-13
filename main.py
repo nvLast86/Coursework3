@@ -10,13 +10,14 @@ def main():
 
     for exc_operation in exc_operations:
         exc_operation['date'] = utils.transform_date(exc_operation['date'])
+        if 'from' not in exc_operation:
+            exc_operation['from'] = 'нет сведений'
 
     exc_operations = utils.sorted_exc_operations(exc_operations)
 
     for i in range (0,5):
         print(f'{utils.convert_date_format(exc_operations[i]["date"])} {exc_operations[i]["description"]}')
 
-#        print(f'{utils.transform_from_card(exc_operations[i])}')
 
 
 
