@@ -18,7 +18,7 @@ def get_executed_operations_list(operations):
 
 def sorted_exc_operations(operations):
     sorted_operations = sorted(operations,
-    key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d %H:%M:%S'), reverse=True)
+                               key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d %H:%M:%S'), reverse=True)
     return sorted_operations
 
 def transform_date(exc_time):
@@ -26,6 +26,13 @@ def transform_date(exc_time):
     time[1] = time[1][:8]
     time = ' '.join(time)
     return time
+
+def convert_date_format(some_date):
+    date = some_date[:10]
+    date = date.split('-')
+    date.reverse()
+    new_format_date = '.'.join(date)
+    return new_format_date
 
 def transform_from_card(info):
     card_data = {'card_name': None, 'card_number': None}
@@ -68,5 +75,5 @@ def hide_card_info(card_number, flag):
 
 #print(get_executed_operations_list(get_operation_info()))
 
-
+print(convert_date_format('2019-12-08 22:46:21'))
 
